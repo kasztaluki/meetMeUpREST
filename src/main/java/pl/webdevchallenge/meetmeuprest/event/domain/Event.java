@@ -1,8 +1,12 @@
 package pl.webdevchallenge.meetmeuprest.event.domain;
 
+import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
+import pl.webdevchallenge.meetmeuprest.event.util.SportsCategory;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -11,11 +15,16 @@ public class Event {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     private String name;
     private Date startDate;
     private long startTime;
     private int duration;
+    private int numOfPeople;
+    private SportsCategory sportsCategory;
+    private GroupCategory groupCategory;
+    private String place;
+
 
     public Event(String name, int duration) {
         this.id = random();
