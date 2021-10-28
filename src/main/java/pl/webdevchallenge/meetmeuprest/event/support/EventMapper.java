@@ -5,6 +5,7 @@ import pl.webdevchallenge.meetmeuprest.event.api.request.EventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
+import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
 
 @Component
 public class EventMapper {

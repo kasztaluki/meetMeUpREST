@@ -1,12 +1,10 @@
 package pl.webdevchallenge.meetmeuprest.event.domain;
 
+import pl.webdevchallenge.meetmeuprest.event.util.EventCategory;
 import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
-import pl.webdevchallenge.meetmeuprest.event.util.SportsCategory;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -14,24 +12,40 @@ import java.util.Date;
 public class Event {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private long userId;
+
     private String name;
-    private Date startDate;
-    private long startTime;
-    private int duration;
-    private int numOfPeople;
-    private SportsCategory sportsCategory;
-    private GroupCategory groupCategory;
     private String place;
+    private int numberOfPersons;
+    private String sportsCategory;
+
+    private LocalDate createDate;
+    private Date eventStartDate;
+    private long eventStartTime;
+    private int duration;
+
+    @Enumerated(EnumType.STRING)
+    private GroupCategory groupCategory;
+    @Enumerated(EnumType.STRING)
+    private EventCategory eventCategory;
 
 
-    public Event(String name, int duration) {
+    public Event(String name, String place, int numberOfPersons, String sportsCategory, Date eventStartDate,
+                 long eventStartTime, int duration, GroupCategory groupCategory, EventCategory eventCategory) {
         this.id = random();
         this.name = name;
-        this.startDate = new Date();
-        this.startTime = getStartDate().getTime();
+        this.place = place;
+        this.numberOfPersons = numberOfPersons;
+        this.sportsCategory = sportsCategory;
+        this.createDate = LocalDate.now();
+        this.eventStartDate = eventStartDate;
+        this.eventStartTime = eventStartTime;
         this.duration = duration;
+        this.groupCategory = groupCategory;
+        this.eventCategory = eventCategory;
     }
 
     public Event() {
@@ -63,20 +77,20 @@ public class Event {
         return name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getEventStartDate() {
+        return eventStartDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setEventStartDate(Date eventStartDate) {
+        this.eventStartDate = eventStartDate;
     }
 
-    public long getStartTime() {
-        return startTime;
+    public long getEventStartTime() {
+        return eventStartTime;
     }
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void setEventStartTime(long eventStartTime) {
+        this.eventStartTime = eventStartTime;
     }
 
     public int getDuration() {

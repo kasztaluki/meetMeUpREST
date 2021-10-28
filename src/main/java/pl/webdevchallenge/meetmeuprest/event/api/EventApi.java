@@ -33,10 +33,10 @@ public class EventApi {
         return new ResponseEntity<>(itemResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/new-event")
-    public Event createNew() {
-        return new Event("Gra w tenisa", 2);
-    }
+//    @GetMapping("/new-event")
+//    public Event createNew() {
+//        return new Event("Gra w tenisa", 2);
+//    }
 
     @GetMapping("/hello")
     public String helloWorld() {
