@@ -4,7 +4,7 @@ import pl.webdevchallenge.meetmeuprest.event.util.EventCategory;
 import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -22,7 +22,7 @@ public class Event {
     private int numberOfPersons;
     private String sportsCategory;
 
-    private LocalDate createDate;
+    private LocalDateTime createDate;
     private Date eventStartDate;
     private long eventStartTime;
     private int duration;
@@ -35,12 +35,11 @@ public class Event {
 
     public Event(String name, String place, int numberOfPersons, String sportsCategory, Date eventStartDate,
                  long eventStartTime, int duration, GroupCategory groupCategory, EventCategory eventCategory) {
-        this.id = random();
         this.name = name;
         this.place = place;
         this.numberOfPersons = numberOfPersons;
         this.sportsCategory = sportsCategory;
-        this.createDate = LocalDate.now();
+        createDate = LocalDateTime.now();
         this.eventStartDate = eventStartDate;
         this.eventStartTime = eventStartTime;
         this.duration = duration;
@@ -49,12 +48,7 @@ public class Event {
     }
 
     public Event() {
-
-    }
-    private long random() {
-        double i = Math.random() * 10;
-        Math.round(i);
-        return (long) i;
+        createDate = LocalDateTime.now();
     }
 
     public Event(String name) {
@@ -101,4 +95,59 @@ public class Event {
         this.duration = duration;
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
+    }
+
+    public String getSportsCategory() {
+        return sportsCategory;
+    }
+
+    public void setSportsCategory(String sportsCategory) {
+        this.sportsCategory = sportsCategory;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+//    public void setCreateDate(LocalDate createDate) {
+//        this.createDate = createDate;
+//    }
+
+    public GroupCategory getGroupCategory() {
+        return groupCategory;
+    }
+
+    public void setGroupCategory(GroupCategory groupCategory) {
+        this.groupCategory = groupCategory;
+    }
+
+    public EventCategory getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
+    }
 }

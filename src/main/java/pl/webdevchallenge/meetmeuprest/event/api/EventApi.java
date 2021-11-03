@@ -9,6 +9,7 @@ import pl.webdevchallenge.meetmeuprest.event.api.request.EventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
+import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
 import pl.webdevchallenge.meetmeuprest.event.service.EventService;
 
 import javax.swing.text.DateFormatter;
@@ -28,9 +29,9 @@ public class EventApi {
 
     @PostMapping
     @ApiOperation("Create event")
-    public ResponseEntity<ItemResponse> create(@RequestBody EventRequest eventRequest){
-        ItemResponse itemResponse = eventService.create(eventRequest);
-        return new ResponseEntity<>(itemResponse, HttpStatus.CREATED);
+    public ResponseEntity<EventDto> create(@RequestBody EventDto eventRequest){
+        EventDto eventDto = eventService.create(eventRequest);
+        return new ResponseEntity<>(eventDto, HttpStatus.CREATED);
     }
 
 //    @GetMapping("/new-event")

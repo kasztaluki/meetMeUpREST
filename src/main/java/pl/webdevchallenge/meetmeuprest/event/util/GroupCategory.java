@@ -2,5 +2,5 @@ package pl.webdevchallenge.meetmeuprest.event.util;
 
 
 public enum GroupCategory {
-    FRIENDSGROUP, EVENTGROUP, UNKNOWN;
+    FRIENDSGROUP, EVENTGROUP, NO_GROUP, UNKNOWN;
 }

@@ -6,6 +6,8 @@ import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
+import pl.webdevchallenge.meetmeuprest.event.mapper.EventDtoToEventMapper;
+import pl.webdevchallenge.meetmeuprest.event.mapper.EventToEventDtoMapper;
 import pl.webdevchallenge.meetmeuprest.event.repository.EventRepository;
 import pl.webdevchallenge.meetmeuprest.event.support.EventMapper;
 import pl.webdevchallenge.meetmeuprest.event.support.exception.EventExceptionSupplier;
@@ -17,19 +19,22 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private final EventRepository eventRepository;
-
+    private final EventDtoToEventMapper eventDtoToEventMapper;
+    private final EventToEventDtoMapper eventToEventDtoMapper;
     private final EventMapper eventMapper;
 
-    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventService(EventRepository eventRepository, EventMapper eventMapper, EventDtoToEventMapper eventDtoToEventMapper, EventToEventDtoMapper eventToEventDtoMapper) {
 
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
+        this.eventDtoToEventMapper = eventDtoToEventMapper;
+        this.eventToEventDtoMapper = eventToEventDtoMapper;
     }
 
-    public ItemResponse create(EventRequest eventRequest) {
+    public EventDto create(EventDto eventRequest) {
 
-        Event event = eventRepository.save(eventMapper.toItem(eventRequest));
-        return eventMapper.toItemResponse(event);
+        Event event = eventRepository.save(eventDtoToEventMapper.map(eventRequest));
+        return eventToEventDtoMapper.map(event);
     }
 
 
