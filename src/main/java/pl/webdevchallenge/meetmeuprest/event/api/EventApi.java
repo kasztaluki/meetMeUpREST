@@ -5,10 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.webdevchallenge.meetmeuprest.event.api.request.EventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
-import pl.webdevchallenge.meetmeuprest.event.domain.Event;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventResultDto;
 import pl.webdevchallenge.meetmeuprest.event.service.EventService;
@@ -52,6 +50,13 @@ public class EventApi {
         return ResponseEntity.status(HttpStatus.OK).body(eventResultDto);
     }
 
+    @GetMapping
+    @ApiOperation("Find all events")
+    public ResponseEntity<List<EventResultDto>> findAll() {
+        List<EventResultDto> eventResultDtos = eventService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(eventResultDtos);
+    }
+
     @PutMapping
     @ApiOperation("Update event")
     public ResponseEntity<ItemResponse> update(@RequestBody UpdateEventRequest updateItemRequest) {
@@ -66,13 +71,6 @@ public class EventApi {
     public ResponseEntity<ItemResponse> update(@PathVariable Long id, @RequestBody UpdateEventRequest updateItemRequest) {
         ItemResponse itemResponse = eventService.updateAlternativeVersion(id, updateItemRequest);
         return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
-    }
-
-    @GetMapping
-    @ApiOperation("Find all events")
-    public ResponseEntity<List<ItemResponse>> findAll() {
-        List<ItemResponse> itemResponses = eventService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(itemResponses);
     }
 
     @DeleteMapping("/{id}")

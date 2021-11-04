@@ -45,6 +45,10 @@ public class EventService {
         return eventToEventResultDtoMapper.map(event);
     }
 
+    public List<EventResultDto> findAll() {
+        return eventRepository.findAll().stream().map(eventToEventResultDtoMapper::map).collect(Collectors.toList());
+    }
+
     public ItemResponse update(UpdateEventRequest updateItemRequest) {
 
         Event event = eventRepository.findById(updateItemRequest.getId()).orElseThrow(EventExceptionSupplier.itemNotFound(updateItemRequest.getId()));
@@ -56,10 +60,6 @@ public class EventService {
         Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(updateItemRequest.getId()));
         eventRepository.save(eventMapper.toItem(event,updateItemRequest));
         return eventMapper.toItemResponse(event);
-    }
-
-    public List<ItemResponse> findAll() {
-        return eventRepository.findAll().stream().map(eventMapper::toItemResponse).collect(Collectors.toList());
     }
 
     public void delete(Long id) {
