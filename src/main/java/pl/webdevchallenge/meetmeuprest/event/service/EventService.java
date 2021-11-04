@@ -39,10 +39,10 @@ public class EventService {
     }
 
 
-    public ItemResponse find(Long id) {
+    public EventResultDto find(Long id) {
 
         Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
-        return eventMapper.toItemResponse(event);
+        return eventToEventResultDtoMapper.map(event);
     }
 
     public ItemResponse update(UpdateEventRequest updateItemRequest) {

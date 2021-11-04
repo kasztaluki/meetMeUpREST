@@ -47,9 +47,9 @@ public class EventApi {
 
     @GetMapping("/{id}")
     @ApiOperation("Find event")
-    public ResponseEntity<ItemResponse> find(@PathVariable Long id){
-        ItemResponse itemResponse = eventService.find(id);
-        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    public ResponseEntity<EventResultDto> find(@PathVariable Long id){
+        EventResultDto eventResultDto = eventService.find(id);
+        return ResponseEntity.status(HttpStatus.OK).body(eventResultDto);
     }
 
     @PutMapping
