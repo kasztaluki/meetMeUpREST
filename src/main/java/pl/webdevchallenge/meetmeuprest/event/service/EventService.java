@@ -1,13 +1,13 @@
 package pl.webdevchallenge.meetmeuprest.event.service;
 
 import org.springframework.stereotype.Service;
-import pl.webdevchallenge.meetmeuprest.event.api.request.EventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
+import pl.webdevchallenge.meetmeuprest.event.dto.EventResultDto;
 import pl.webdevchallenge.meetmeuprest.event.mapper.EventDtoToEventMapper;
-import pl.webdevchallenge.meetmeuprest.event.mapper.EventToEventDtoMapper;
+import pl.webdevchallenge.meetmeuprest.event.mapper.EventToEventResultDtoMapper;
 import pl.webdevchallenge.meetmeuprest.event.repository.EventRepository;
 import pl.webdevchallenge.meetmeuprest.event.support.EventMapper;
 import pl.webdevchallenge.meetmeuprest.event.support.exception.EventExceptionSupplier;
@@ -20,21 +20,22 @@ public class EventService {
 
     private final EventRepository eventRepository;
     private final EventDtoToEventMapper eventDtoToEventMapper;
-    private final EventToEventDtoMapper eventToEventDtoMapper;
+    private final EventToEventResultDtoMapper eventToEventResultDtoMapper;
     private final EventMapper eventMapper;
 
-    public EventService(EventRepository eventRepository, EventMapper eventMapper, EventDtoToEventMapper eventDtoToEventMapper, EventToEventDtoMapper eventToEventDtoMapper) {
+    public EventService(EventRepository eventRepository, EventMapper eventMapper,
+                        EventDtoToEventMapper eventDtoToEventMapper, EventToEventResultDtoMapper eventToEventResultDtoMapper) {
 
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
         this.eventDtoToEventMapper = eventDtoToEventMapper;
-        this.eventToEventDtoMapper = eventToEventDtoMapper;
+        this.eventToEventResultDtoMapper = eventToEventResultDtoMapper;
     }
 
-    public EventDto create(EventDto eventRequest) {
+    public EventResultDto create(EventDto eventRequest) {
 
         Event event = eventRepository.save(eventDtoToEventMapper.map(eventRequest));
-        return eventToEventDtoMapper.map(event);
+        return eventToEventResultDtoMapper.map(event);
     }
 
 

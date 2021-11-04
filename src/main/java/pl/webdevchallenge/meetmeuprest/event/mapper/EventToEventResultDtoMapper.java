@@ -2,13 +2,14 @@ package pl.webdevchallenge.meetmeuprest.event.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
-import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
+import pl.webdevchallenge.meetmeuprest.event.dto.EventResultDto;
 
 @Component
-public class EventToEventDtoMapper {
+public class EventToEventResultDtoMapper {
 
-    public EventDto map(Event event) {
-        EventDto eventDto = new EventDto(
+    public EventResultDto map(Event event) {
+        EventResultDto eventDto = new EventResultDto(
+                event.getId(),
                 event.getName(),
                 event.getPlace(),
                 event.getNumberOfPersons(),

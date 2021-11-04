@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class EventDto {
 
+    private long id;
     private String name;
     private String place;
     private int numberOfPersons;
@@ -32,14 +33,6 @@ public class EventDto {
         this.groupCategory = groupCategory;
         this.eventCategory = eventCategory;
     }
-//
-//    public EventDto(String name) {
-//        this.name = name;
-//    }
-
-//    public Long getId() {
-//        return id;
-//    }
 
     public String getName() {
         return name;
