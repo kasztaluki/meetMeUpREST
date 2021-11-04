@@ -49,11 +49,11 @@ public class EventService {
         return eventRepository.findAll().stream().map(eventToEventResultDtoMapper::map).collect(Collectors.toList());
     }
 
-    public ItemResponse update(UpdateEventRequest updateItemRequest) {
+    public EventResultDto update(UpdateEventRequest updateEventRequest) {
 
-        Event event = eventRepository.findById(updateItemRequest.getId()).orElseThrow(EventExceptionSupplier.itemNotFound(updateItemRequest.getId()));
-        eventRepository.save(eventMapper.toItem(event, updateItemRequest));
-        return eventMapper.toItemResponse(event);
+        Event event = eventRepository.findById(updateEventRequest.getId()).orElseThrow(EventExceptionSupplier.itemNotFound(updateEventRequest.getId()));
+        eventRepository.save(eventDtoToEventMapper.map(event, updateEventRequest));
+        return eventToEventResultDtoMapper.map(event);
     }
 
     public ItemResponse updateAlternativeVersion(Long id, UpdateEventRequest updateItemRequest) {

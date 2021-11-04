@@ -1,6 +1,7 @@
 package pl.webdevchallenge.meetmeuprest.event.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventResultDto;
 

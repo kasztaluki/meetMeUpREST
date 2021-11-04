@@ -33,16 +33,6 @@ public class EventApi {
         return new ResponseEntity<>(eventResultDto, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/new-event")
-//    public Event createNew() {
-//        return new Event("Gra w tenisa", 2);
-//    }
-
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return "Hello World";
-    }
-
     @GetMapping("/{id}")
     @ApiOperation("Find event")
     public ResponseEntity<EventResultDto> find(@PathVariable Long id){
@@ -59,9 +49,9 @@ public class EventApi {
 
     @PutMapping
     @ApiOperation("Update event")
-    public ResponseEntity<ItemResponse> update(@RequestBody UpdateEventRequest updateItemRequest) {
-        ItemResponse itemResponse = eventService.update(updateItemRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    public ResponseEntity<EventResultDto> update(@RequestBody UpdateEventRequest updateEventRequest) {
+        EventResultDto eventResultDto = eventService.update(updateEventRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(eventResultDto);
     }
 
 
