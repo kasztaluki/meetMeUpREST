@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateEventRequest;
-import pl.webdevchallenge.meetmeuprest.event.api.response.ItemResponse;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventDto;
 import pl.webdevchallenge.meetmeuprest.event.dto.EventResultDto;
 import pl.webdevchallenge.meetmeuprest.event.service.EventService;
@@ -58,9 +57,9 @@ public class EventApi {
 //    Alternatywna ścieżka - przekazanie id w parametrze ścieżki @PathVariable
     @PutMapping("/{id}")
     @ApiOperation("Alternative version update event")
-    public ResponseEntity<ItemResponse> update(@PathVariable Long id, @RequestBody UpdateEventRequest updateItemRequest) {
-        ItemResponse itemResponse = eventService.updateAlternativeVersion(id, updateItemRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    public ResponseEntity<EventResultDto> update(@PathVariable Long id, @RequestBody UpdateEventRequest updateEventRequest) {
+        EventResultDto eventResultDto = eventService.updateAlternativeVersion(id, updateEventRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(eventResultDto);
     }
 
     @DeleteMapping("/{id}")
