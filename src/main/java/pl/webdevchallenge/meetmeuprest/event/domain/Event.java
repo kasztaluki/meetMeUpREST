@@ -1,5 +1,6 @@
 package pl.webdevchallenge.meetmeuprest.event.domain;
 
+import org.springframework.stereotype.Component;
 import pl.webdevchallenge.meetmeuprest.event.util.EventCategory;
 import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-
+@Component
 @Entity(name = "events")
 public class Event {
 
@@ -31,6 +32,18 @@ public class Event {
     private GroupCategory groupCategory;
     @Enumerated(EnumType.STRING)
     private EventCategory eventCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 
 
     public Event(String name, String place, int numberOfPersons, String sportsCategory, Date eventStartDate,
