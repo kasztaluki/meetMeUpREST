@@ -37,7 +37,7 @@ public class GroupDtoToGroupMapper {
     public Group map(GroupDto dto) {
         Group group = new Group();
 
-        group.setGroupUser(getUser(dto.getUserId()));
+        group.setGroupUsers(getUser(dto.getUserId()));
         group.setGroupEvent(getEvent(dto.getEventId()));
         group.setGroupName(dto.getGroupName());
         group.setGroupCategory(setGroupCategory(dto));

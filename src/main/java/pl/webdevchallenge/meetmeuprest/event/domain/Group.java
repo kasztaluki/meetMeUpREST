@@ -1,10 +1,16 @@
 package pl.webdevchallenge.meetmeuprest.event.domain;
 
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Component
 @Entity(name = "groups")
 public class Group {
     @Id
@@ -12,22 +18,22 @@ public class Group {
     private long id;
     private String groupName;
     private GroupCategory groupCategory;
-    @OneToMany
-    private Set<User> groupUsersList;
-    @OneToMany
-    private Set<Event> groupEventList;
-    @ManyToOne
-    private User groupUser;
-    @ManyToOne
-    private Event groupEvent;
 
-    public Group(String groupName, GroupCategory groupCategory, /*, Set<User> groupUsersList, Set<Event> groupEventList*/User groupUser, Event groupEvent) {
+    @Nullable
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "group_users", joinColumns = { @JoinColumn(name = "group_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")})
+    private List<User> groupUsers = new ArrayList<User>();
+
+    @Nullable
+    @OneToMany(mappedBy = "group", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Event> groupEvent = new ArrayList<Event>();
+
+    public Group(String groupName, GroupCategory groupCategory, User groupUsers, Event groupEvent) {
         this.groupName = groupName;
         this.groupCategory = groupCategory;
-//        this.groupUsersList = new HashSet<>(groupUsersList);
-//        this.groupEventList = new HashSet<>(groupEventList);
-        this.groupUser = groupUser;
-        this.groupEvent = groupEvent;
+        this.groupUsers.add(groupUsers);
+        this.groupEvent.add(groupEvent);
     }
 
     public Group() {
@@ -58,36 +64,26 @@ public class Group {
         this.groupCategory = groupCategory;
     }
 
-    public Set<User> getGroupUsersList() {
-        return groupUsersList;
+    public List<User> getGroupUsers() {
+        return groupUsers;
     }
 
-    public void setGroupUsersList(User groupUsersList) {
-        this.groupUsersList.add(groupUsersList);
+    public void setGroupUsers(User groupUsers) {
+        this.groupUsers.add(groupUsers);
     }
 
-    public Set<Event> getGroupEventList() {
-        return groupEventList;
-    }
-
-    public void setGroupEventList(Event groupEventList) {
-        this.groupEventList.add(groupEventList);
-    }
-
-    public User getGroupUser() {
-        return groupUser;
-    }
-
-    public void setGroupUser(User groupUser) {
-        this.groupUser = groupUser;
-    }
-
-    public Event getGroupEvent() {
+    public List<Event> getGroupEvent() {
         return groupEvent;
     }
 
     public void setGroupEvent(Event groupEvent) {
-        this.groupEvent = groupEvent;
+        this.groupEvent.add(groupEvent);
     }
 
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupName='" + groupName + '\'' +
+                '}';
+    }
 }

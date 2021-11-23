@@ -1,28 +1,30 @@
 package pl.webdevchallenge.meetmeuprest.event.domain;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import pl.webdevchallenge.meetmeuprest.event.util.EventCategory;
 import pl.webdevchallenge.meetmeuprest.event.util.GroupCategory;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Component
-@Entity(name = "events")
+@Entity
+@Table(name = "events")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private long userId;
-
     private String name;
     private String place;
     private int numberOfPersons;
     private String sportsCategory;
-
     private LocalDateTime createDate;
     private Date eventStartDate;
     private long eventStartTime;
@@ -33,21 +35,18 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventCategory eventCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id")
+    @Nullable
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    //@JoinColumn(name = "groups_id")
     private Group group;
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @JoinTable(name = "event_users", joinColumns = { @JoinColumn(name = "event_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")})
+    private List<User> eventUsers = new ArrayList<User>();
 
     public Event(String name, String place, int numberOfPersons, String sportsCategory, Date eventStartDate,
-                 long eventStartTime, int duration, GroupCategory groupCategory, EventCategory eventCategory) {
+                 long eventStartTime, int duration, GroupCategory groupCategory, EventCategory eventCategory, Group group, User eventUsers) {
         this.name = name;
         this.place = place;
         this.numberOfPersons = numberOfPersons;
@@ -58,6 +57,8 @@ public class Event {
         this.duration = duration;
         this.groupCategory = groupCategory;
         this.eventCategory = eventCategory;
+        this.group = group;
+        this.eventUsers.add(eventUsers);
     }
 
     public Event() {
@@ -162,5 +163,20 @@ public class Event {
 
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
