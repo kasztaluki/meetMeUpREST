@@ -175,8 +175,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "name='" + name + '\'' +
+        return "Event name=" + name + '\'' +
                 '}';
     }
 }
