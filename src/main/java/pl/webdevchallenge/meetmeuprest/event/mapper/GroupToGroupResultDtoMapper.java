@@ -13,4 +13,16 @@ public class GroupToGroupResultDtoMapper {
         );
         return groupResultDto;
     }
+
+    public GroupResultDto mapList(Group group) {
+        GroupResultDto groupResultDto = new GroupResultDto(
+                group.getId(),
+                group.getGroupName(),
+                group.getGroupCategory().toString(),
+                group.getPlace(),
+                //wyliczenie liczby uczestników grupy
+                group.getGroupUsers().size()
+        );
+        return groupResultDto;
+    }
 }

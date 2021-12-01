@@ -18,6 +18,7 @@ public class Group {
     private long id;
     private String groupName;
     private GroupCategory groupCategory;
+    private String place;
 
     @Nullable
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
@@ -29,9 +30,10 @@ public class Group {
     @OneToMany(mappedBy = "group", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Event> groupEvent = new ArrayList<Event>();
 
-    public Group(String groupName, GroupCategory groupCategory, User groupUsers, Event groupEvent) {
+    public Group(String groupName, GroupCategory groupCategory, String place, User groupUsers, Event groupEvent) {
         this.groupName = groupName;
         this.groupCategory = groupCategory;
+        this.place = place;
         this.groupUsers.add(groupUsers);
         this.groupEvent.add(groupEvent);
     }
@@ -64,6 +66,14 @@ public class Group {
         this.groupCategory = groupCategory;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public List<User> getGroupUsers() {
         return groupUsers;
     }
@@ -86,4 +96,5 @@ public class Group {
                 "groupName='" + groupName + '\'' +
                 '}';
     }
+
 }

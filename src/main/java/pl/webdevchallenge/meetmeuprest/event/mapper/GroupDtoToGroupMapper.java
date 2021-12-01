@@ -1,6 +1,7 @@
 package pl.webdevchallenge.meetmeuprest.event.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.webdevchallenge.meetmeuprest.event.api.request.UpdateGroupRequest;
 import pl.webdevchallenge.meetmeuprest.event.domain.Event;
 import pl.webdevchallenge.meetmeuprest.event.domain.Group;
 import pl.webdevchallenge.meetmeuprest.event.domain.User;
@@ -41,10 +42,23 @@ public class GroupDtoToGroupMapper {
         group.setGroupEvent(getEvent(dto.getEventId()));
         group.setGroupName(dto.getGroupName());
         group.setGroupCategory(setGroupCategory(dto));
+        group.setPlace(dto.getPlace());
+
+        return group;
+    }
+    public Group map(Group group, UpdateGroupRequest updateGroupRequest) {
+        //dodawanie usera do listy grupy przez aktualizację - do wyciągnięcia do oddzielnej metody/mapowania
+        group.setGroupUsers(getUser(updateGroupRequest.getUserId()));
+        //dodawanie eventu do listy grupy przez aktualizację - do wyciągnięcia do oddzielnej metody/mapowania
+        group.setGroupEvent(getEvent(updateGroupRequest.getUserId()));
+        group.setGroupName(updateGroupRequest.getGroupName());
+        group.setGroupCategory(setGroupCategory(updateGroupRequest));
+        group.setPlace(updateGroupRequest.getPlace());
 
         return group;
     }
 
+    //do poprawy / wpisania wymagań dokumentacji dla frontu
     private GroupCategory setGroupCategory(GroupDto dto) {
         if (dto.getGroupCategory().toLowerCase().contains("friend"))
             return GroupCategory.FRIENDSGROUP;
