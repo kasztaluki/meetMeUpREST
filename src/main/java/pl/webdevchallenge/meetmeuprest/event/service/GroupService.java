@@ -9,6 +9,7 @@ import pl.webdevchallenge.meetmeuprest.event.mapper.GroupDtoToGroupMapper;
 import pl.webdevchallenge.meetmeuprest.event.mapper.GroupToGroupResultDtoMapper;
 import pl.webdevchallenge.meetmeuprest.event.repository.GroupRepository;
 import pl.webdevchallenge.meetmeuprest.event.support.exception.EventExceptionSupplier;
+import pl.webdevchallenge.meetmeuprest.event.support.exception.GroupExceptionSupplier;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class GroupService {
     }
 
     public GroupResultDto find(Long id) {
-        Group group = groupRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        Group group = groupRepository.findById(id).orElseThrow(GroupExceptionSupplier.groupNotFound(id));
         return groupToGroupResultDtoMapper.map(group);
     }
 
@@ -42,9 +43,13 @@ public class GroupService {
     }
 
     public GroupResultDto update(Long id, UpdateGroupRequest updateGroupRequest) {
-        Group group = groupRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        Group group = groupRepository.findById(id).orElseThrow(GroupExceptionSupplier.groupNotFound(id));
         groupRepository.save(groupDtoToGroupMapper.map(group, updateGroupRequest));
         return groupToGroupResultDtoMapper.map(group);
     }
 
+    public void delete(Long id) {
+        Group group = groupRepository.findById(id).orElseThrow(GroupExceptionSupplier.groupNotFound(id));
+        groupRepository.deleteById(group.getId());
+    }
 }

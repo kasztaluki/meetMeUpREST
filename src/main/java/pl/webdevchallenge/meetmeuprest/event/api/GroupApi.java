@@ -51,6 +51,10 @@ public class GroupApi {
         return ResponseEntity.status(HttpStatus.OK).body(groupResultDto);
     }
 
-
-
+    @DeleteMapping("/delete/id")
+    @ApiOperation("Delete group")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        groupService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

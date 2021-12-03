@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.webdevchallenge.meetmeuprest.shared.api.response.ErrorMessageResponse;
 
 @ControllerAdvice
-public class EventExceptionAdvisor {
+public class GroupExceptionAdvisor {
 
-    private static final Logger LOG = (Logger) LoggerFactory.getLogger(EventExceptionAdvisor.class);
+    private static final Logger LOG = (Logger) LoggerFactory.getLogger(GroupExceptionAdvisor.class);
 
-    @ExceptionHandler(EventNotFoundException.class)
+    @ExceptionHandler(GroupNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public ErrorMessageResponse eventNotFound(EventNotFoundException exception) {
+    public ErrorMessageResponse groupNotFound(GroupNotFoundException exception) {
         LOG.error(exception.getMessage(), exception);
         return new ErrorMessageResponse(exception.getLocalizedMessage());
     }

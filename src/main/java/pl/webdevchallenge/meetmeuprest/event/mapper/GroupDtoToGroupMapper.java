@@ -26,12 +26,13 @@ public class GroupDtoToGroupMapper {
     }
 
     private User getUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        //to do and update user exceptions
+        User user = userRepository.findById(id).orElseThrow(EventExceptionSupplier.eventNotFound(id));
         return user;
     }
 
     private Event getEvent(Long id) {
-        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.eventNotFound(id));
         return event;
     }
 

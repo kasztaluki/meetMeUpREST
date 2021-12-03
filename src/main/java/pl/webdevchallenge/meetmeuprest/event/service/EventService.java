@@ -36,7 +36,7 @@ public class EventService {
 
 
     public EventResultDto find(Long id) {
-        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.eventNotFound(id));
         return eventToEventResultDtoMapper.map(event);
     }
 
@@ -45,19 +45,19 @@ public class EventService {
     }
 
     public EventResultDto update(UpdateEventRequest updateEventRequest) {
-        Event event = eventRepository.findById(updateEventRequest.getId()).orElseThrow(EventExceptionSupplier.itemNotFound(updateEventRequest.getId()));
+        Event event = eventRepository.findById(updateEventRequest.getId()).orElseThrow(EventExceptionSupplier.eventNotFound(updateEventRequest.getId()));
         eventRepository.save(eventDtoToEventMapper.map(event, updateEventRequest));
         return eventToEventResultDtoMapper.map(event);
     }
 
     public EventResultDto updateAlternativeVersion(Long id, UpdateEventRequest updateEventRequest) {
-        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(updateEventRequest.getId()));
+        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.eventNotFound(updateEventRequest.getId()));
         eventRepository.save(eventDtoToEventMapper.map(event,updateEventRequest));
         return eventToEventResultDtoMapper.map(event);
     }
 
     public void delete(Long id) {
-        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.itemNotFound(id));
+        Event event = eventRepository.findById(id).orElseThrow(EventExceptionSupplier.eventNotFound(id));
         eventRepository.deleteById(event.getId());
     }
 }

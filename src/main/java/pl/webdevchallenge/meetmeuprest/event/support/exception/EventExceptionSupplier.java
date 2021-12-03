@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 public class EventExceptionSupplier {
 
-    public static Supplier<EventNotFoundException> itemNotFound(Long id) {
+    public static Supplier<EventNotFoundException> eventNotFound(Long id) {
         return () -> new EventNotFoundException(id);
     }
 }

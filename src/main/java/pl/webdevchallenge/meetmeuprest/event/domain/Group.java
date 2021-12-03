@@ -17,6 +17,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String groupName;
+    @Enumerated(EnumType.STRING)
     private GroupCategory groupCategory;
     private String place;
 
